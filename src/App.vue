@@ -1,38 +1,30 @@
 <script setup>
-import StoryPage from './components/StoryPage.vue'
+import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <main>
-    <StoryPage />
-  </main>
+  <div id="app">
+    <Navbar />
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+/* 移除未使用的header样式 */
 </style>
