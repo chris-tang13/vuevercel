@@ -27,11 +27,6 @@ app.use(express.static(join(__dirname, 'dist'), {
   }
 }));
 
-// 确保所有非API路由都返回index.html
-app.get('*', (req, res) => {
-  res.sendFile(join(__dirname, 'dist', 'index.html'));
-});
-
 // 抓取Google Maps数据的路由
 app.post('/api/scrape-google-map', async (req, res) => {
   try {
@@ -110,8 +105,7 @@ app.post('/api/scrape-google-map', async (req, res) => {
     });
   }
 });
-
-// 所有其他路由都指向index.html
+// 所有其他路由都指向index.html (支持Vue Router history模式)
 app.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
