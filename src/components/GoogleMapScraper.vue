@@ -76,7 +76,8 @@ export default {
 
           try {
             // 发送请求到后端服务
-            const response = await fetch('http://localhost:3001/api/scrape-google-map', {
+            // 使用相对路径，避免硬编码地址
+            const response = await fetch('/api/scrape-google-map', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
