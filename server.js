@@ -18,8 +18,19 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-// 静态文件服务
-app.use(express.static(join(__dirname, 'dist')));
+// 静态文件服务 - 确保正确处理MIME类型
+app.use(express.static(join(__dirname, 'dist'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
+// 确保所有非API路由都返回index.html
+app.get('*', (req, res) => {
+  res.sendFile(join(__dirname, 'dist', 'index.html'));
+});
 
 // 抓取Google Maps数据的路由
 app.post('/api/scrape-google-map', async (req, res) => {
