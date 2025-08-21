@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import StoryPage from '../components/StoryPage.vue'
 import InfoPage from '../components/InfoPage.vue'
+import GoogleMapScraper from '../components/GoogleMapScraper.vue'
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/info',
     name: 'InfoPage',
     component: InfoPage
+  },
+  {
+    path: '/google-map-scraper',
+    name: 'GoogleMapScraper',
+    component: GoogleMapScraper
   }
 ]
 
