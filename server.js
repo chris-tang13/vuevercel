@@ -41,29 +41,40 @@ app.post('/api/scrape-google-map', async (req, res) => {
     const $ = cheerio.load(html);
 
     // 提取评分和评价数量
-    // 注意：Google Maps的HTML结构可能会随时间变化，需要调整选择器
+    // 使用aria-label进行模糊匹配，提高对页面结构变化的适应性
     let rating = null;
     let reviewCount = null;
 
-    // 尝试不同的选择器来获取评分
+    // 尝试使用aria-label模糊匹配获取评分
+    // 匹配包含'rating'或'评分'的aria-label
     const ratingElements = [
+      '[aria-label*="rating"]',
+      '[aria-label*="评分"]',
       'div.F7nice span.Aq14fc',
       'div.jANrlb span.Aq14fc',
-      'span.z1asCe' // 另一个可能的评分选择器
+      'span.z1asCe'
     ];
 
     for (const selector of ratingElements) {
       if ($(selector).length > 0) {
         rating = $(selector).text().trim();
+        // 提取数字评分（有些元素可能包含额外文本）
+        const ratingMatch = rating.match(/\d+\.\d+/);
+        if (ratingMatch) {
+          rating = ratingMatch[0];
+        }
         break;
       }
     }
 
-    // 尝试不同的选择器来获取评价数量
+    // 尝试使用aria-label模糊匹配获取评价数量
+    // 匹配包含'review'或'评价'的aria-label
     const reviewCountElements = [
+      '[aria-label*="review"]',
+      '[aria-label*="评价"]',
       'div.F7nice span.jANrlb',
       'div.jANrlb span.jANrlb',
-      'span.Yr7JMd' // 另一个可能的评价数量选择器
+      'span.Yr7JMd'
     ];
 
     for (const selector of reviewCountElements) {
