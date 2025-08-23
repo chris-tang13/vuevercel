@@ -24,7 +24,7 @@ app.use(express.json());
 
 // 根路由
 app.get('/', (req, res) => {
-  res.send('Express Vercel 测试项目');
+  res.send('Express Vercel 测试项目来了老弟');
 });
 
 // 用户路由
